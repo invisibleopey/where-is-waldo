@@ -77,9 +77,8 @@ See the section about [deployment](https://facebook.github.io/create-react-app/d
 
 ### Designed with
 
-- Wireframing on Figma
-- Low fidelity design on Figma
-- [Figma design available here](http://)
+- Wireframing and low fidelity design on Figma
+- [Figma design available here](https://www.figma.com/file/SCZwaUyfUF99oov0bSyWrF/Where's-waldo?node-id=0%3A1)
 
 ### Built with
 
