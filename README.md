@@ -1,6 +1,46 @@
-# Getting Started with Create React App
+# Where is waldo
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is a solution to the [Where is waldo project](https://). The Odin Project help you improve your coding skills by building realistic projects.
+
+## Table of contents
+
+- [Overview](#overview)
+  - [The project](#the-project)
+  - [Screenshot](#screenshot)
+  - [Links](#links)
+- [Available Scripts](#available-scripts)
+  - [Npm start](#npm-start)
+  - [Npm test](#npm-test)
+  - [Npm Run Build](#npm-run-build)
+  - [Npm Run Eject](#npm-run-eject)
+- [My process](#my-process)
+  - [Designed with](#designed-with)
+  - [Built with](#built-with)
+  - [What I learned](#what-i-learned)
+  - [Continued development](#continued-development)
+  - [Useful resources](#useful-resources)
+- [Author](#author)
+- [Acknowledgments](#acknowledgments)
+
+## Overview
+
+### The project
+
+Users should be able to:
+
+- View the optimal layout for each of the website's pages depending on their device's screen size
+- Select the particular picture they will like to compete with
+- Play the game and record their names on the leaderboard
+- View the names and best times on the leaderboard
+
+### Screenshot
+
+![](./screenshot.jpg)
+
+### Links
+
+- Repo URL: [](https://)
+- Live Site URL: [](https://)
 
 ## Available Scripts
 
@@ -33,14 +73,33 @@ See the section about [deployment](https://facebook.github.io/create-react-app/d
 
 **Note: this is a one-way operation. Once you `eject`, you can’t go back!**
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## My process
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+### Designed with
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+- Wireframing on Figma
+- Low fidelity design on Figma
+- [Figma design available here](http://)
 
-## Learn More
+### Built with
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- Semantic HTML5 markup
+- Tailwind CSS
+- Mobile-first workflow
+- [React](https://reactjs.org/) - JS library
+- [Typescript](http://)
+- [React router](http://)
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### What I learned
+
+### Continued development
+
+### Useful resources
+
+## Author
+
+- Abdullahi Muritala
+- Website - [abdullahimuritala](https://www.your-site.com)
+- Twitter - [@invisibleopey](https://www.twitter.com/invisibleopey)
+
+## Acknowledgments
