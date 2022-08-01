@@ -14,3 +14,15 @@
 .App > div:nth-of-type(1) {
   flex: 1 0 auto;
 }
+
+@layer components {
+  .btn {
+    @apply bg-primary px-4 py-3 md:px-7 md:py-5 text-myWhite rounded-lg;
+  }
+  .mySection {
+    @apply px-[30px] md:px-[60px] lg:px-[140px] mt-[30px] lg:mt-[70px];
+  }
+  .thumbnails {
+    @apply w-[100%] h-[100%] rounded-md;
+  }
+}
