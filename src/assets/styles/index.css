@@ -4,7 +4,10 @@
 
 @layer base {
   body {
-    @apply m-0 p-0 bg-myWhite;
+    @apply m-0 p-0 bg-myWhite text-primary;
+  }
+  h1 {
+    @apply font-medium text-xl md:text-2xl lg:text-3xl;
   }
 }
 
