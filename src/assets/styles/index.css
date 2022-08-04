@@ -25,4 +25,7 @@
   .thumbnails {
     @apply w-[100%] h-[100%] rounded-md;
   }
+  .myFigure {
+    @apply max-w-[97px] min-w-0;
+  }
 }
