@@ -11,7 +11,7 @@ function App() {
     <div className="App flex flex-col h-screen">
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="game" element={<Game />} />
+        <Route path=":gameId" element={<Game />} />
         <Route path="leaderboard" element={<Leaderboard />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
