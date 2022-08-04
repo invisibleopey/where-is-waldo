@@ -9,6 +9,12 @@
   h1 {
     @apply font-medium text-xl md:text-2xl lg:text-3xl;
   }
+  th {
+    @apply text-lg md:text-xl lg:text-2xl;
+  }
+  td {
+    @apply text-[#000000] text-center py-2;
+  }
 }
 
 .App > div:nth-of-type(1) {
