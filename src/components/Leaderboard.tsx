@@ -2,14 +2,17 @@ import React from 'react';
 import BeachThumbnail from '../assets/images/beach thumbnail.png';
 import SnowThumbnail from '../assets/images/snow thumbnail.png';
 import SpaceThumbnail from '../assets/images/space thumbnail.png';
+import { Link } from 'react-router-dom';
 
 const Leaderboard = () => {
   return (
     <div>
       <header className="w-full px-8 md:px-16 lg:px-36 py-8 text-center flex justify-between items-center">
-        <button className="bg-primary text-myWhite py-2 px-4 text-sm md:text-base md:py-4 md:px-8">
-          Main
-        </button>
+        <Link to="/">
+          <button className="bg-primary text-myWhite py-2 px-4 text-sm md:text-base md:py-4 md:px-8">
+            Main
+          </button>
+        </Link>
       </header>
 
       <section className="mySection">

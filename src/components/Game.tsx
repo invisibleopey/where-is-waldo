@@ -5,7 +5,7 @@ import Whitebeard from '../assets/images/Whitebeard.jpg';
 import Beach from '../assets/images/beach main.jpg';
 import Snow from '../assets/images/snow main.jpg';
 import Space from '../assets/images/space main.jpg';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 
 const Game = () => {
   let params = useParams();
@@ -30,9 +30,11 @@ const Game = () => {
   return (
     <div className="px-[30px] md:px-[60px] lg:px-[140px]">
       <header className="w-full px-8 md:px-16 lg:px-36 py-8 text-center flex justify-between items-center">
-        <button className="bg-primary text-myWhite py-2 px-4 text-sm md:text-base md:py-4 md:px-8">
-          Main
-        </button>
+        <Link to="/">
+          <button className="bg-primary text-myWhite py-2 px-4 text-sm md:text-base md:py-4 md:px-8">
+            Main
+          </button>
+        </Link>
         <div className="flex gap-3 shrink-[2]">
           <figure className="myFigure">
             <img src={Waldo} alt="A close up look of waldo" />
@@ -56,7 +58,9 @@ const Game = () => {
       </section>
       <section>
         <div className="text-center">
-          <button className="btn">View leaderboards</button>
+          <Link to="/leaderboard">
+            <button className="btn">View leaderboards</button>
+          </Link>
         </div>
       </section>
     </div>

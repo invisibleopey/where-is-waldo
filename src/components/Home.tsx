@@ -31,7 +31,9 @@ const Home = () => {
 
       <section className="mySection">
         <div className="text-center">
-          <button className="btn">View leaderboards</button>
+          <Link to="/leaderboard">
+            <button className="btn">View leaderboards</button>
+          </Link>
         </div>
       </section>
     </div>
