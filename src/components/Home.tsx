@@ -2,6 +2,7 @@ import React from 'react';
 import BeachThumbnail from '../assets/images/beach thumbnail.png';
 import SnowThumbnail from '../assets/images/snow thumbnail.png';
 import SpaceThumbnail from '../assets/images/space thumbnail.png';
+import { Link } from 'react-router-dom';
 
 const Home = () => {
   return (
@@ -12,19 +13,19 @@ const Home = () => {
 
       <section className="mySection">
         <div className="flex gap-5 ">
-          <div>
+          <Link to="game1">
             <img
               src={BeachThumbnail}
               alt="where is waldo game at the beach"
               className="thumbnails"
             />
-          </div>
-          <div>
+          </Link>
+          <Link to="game2">
             <img src={SnowThumbnail} alt="where is waldo game in the snow" className="thumbnails" />
-          </div>
-          <div>
+          </Link>
+          <Link to="game3">
             <img src={SpaceThumbnail} alt="where is waldo game at space" className="thumbnails" />
-          </div>
+          </Link>
         </div>
       </section>
 
