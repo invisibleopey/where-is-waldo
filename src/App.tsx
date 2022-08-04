@@ -4,6 +4,7 @@ import Footer from './components/Footer';
 import Game from './components/Game';
 import Home from './components/Home';
 import Leaderboard from './components/Leaderboard';
+import NotFound from './components/NotFound';
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="game" element={<Game />} />
         <Route path="leaderboard" element={<Leaderboard />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
       <Footer />
     </div>
