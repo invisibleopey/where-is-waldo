@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Waldo from '../assets/images/Waldo.jpg';
 import Odlaw from '../assets/images/Odlaw.jpg';
 import Whitebeard from '../assets/images/Whitebeard.jpg';
@@ -6,10 +6,14 @@ import Beach from '../assets/images/beach main.jpg';
 import Snow from '../assets/images/snow main.jpg';
 import Space from '../assets/images/space main.jpg';
 import { useParams, Link } from 'react-router-dom';
+import Popup from './Popup';
 
 const Game = () => {
   let params = useParams();
   let gameUrl;
+  const [posX, setPosX] = useState(0);
+  const [posY, setPosY] = useState(0);
+  const [clicked, setClicked] = useState(false);
 
   switch (params.gameId) {
     case 'game1':
@@ -26,6 +30,16 @@ const Game = () => {
     default:
       break;
   }
+
+  const handleImageClick = (event: any) => {
+    const rect = event.target.getBoundingClientRect();
+    let newX = event.clientX - rect.left; //x position within the element.
+    let newY = event.clientY - rect.top; //y position within the element.
+    setPosX(newX);
+    setPosY(newY);
+    console.log('Left? : ' + newX + ' ; Top? : ' + newY + '.');
+    setClicked(true);
+  };
 
   return (
     <div className="px-[30px] md:px-[60px] lg:px-[140px]">
@@ -52,8 +66,13 @@ const Game = () => {
         <div>00m:00s</div>
       </header>
       <section className="mb-[30px] lg:mb-[70px]">
-        <figure className="w-[100%]">
-          <img src={gameUrl} alt="Locate the three characters on the beach" />
+        <figure className="w-[100%] relative">
+          <img
+            src={gameUrl}
+            alt="Locate the three characters on the beach"
+            onClick={handleImageClick}
+          />
+          <div>{clicked ? <Popup posX={posX} posY={posY} /> : null}</div>
         </figure>
       </section>
       <section>
