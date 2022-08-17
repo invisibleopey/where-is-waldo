@@ -34,4 +34,7 @@
   .myFigure {
     @apply max-w-[97px] min-w-0;
   }
+  .option-btns {
+    @apply bg-myWhite opacity-80 px-1 py-2 md:px-2 md:py-4 text-primary rounded-lg;
+  }
 }
