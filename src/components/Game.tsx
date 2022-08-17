@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Waldo from '../assets/images/Waldo.jpg';
 import Odlaw from '../assets/images/Odlaw.jpg';
 import Whitebeard from '../assets/images/Whitebeard.jpg';
@@ -13,7 +13,20 @@ const Game = () => {
   let gameUrl;
   const [posX, setPosX] = useState(0);
   const [posY, setPosY] = useState(0);
-  const [clicked, setClicked] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  useEffect(() => {
+    const dismissModal = (event: any) => {
+      if (event.target.id !== 'gamePic') {
+        setIsModalOpen(false);
+      }
+    };
+    document.body.addEventListener('click', dismissModal);
+
+    return () => {
+      document.body.removeEventListener('click', dismissModal);
+    };
+  });
 
   switch (params.gameId) {
     case 'game1':
@@ -38,7 +51,7 @@ const Game = () => {
     setPosX(newX);
     setPosY(newY);
     console.log('Left? : ' + newX + ' ; Top? : ' + newY + '.');
-    setClicked(true);
+    setIsModalOpen(true);
   };
 
   return (
@@ -71,8 +84,9 @@ const Game = () => {
             src={gameUrl}
             alt="Locate the three characters on the beach"
             onClick={handleImageClick}
+            id="gamePic"
           />
-          <div>{clicked ? <Popup posX={posX} posY={posY} /> : null}</div>
+          <div>{isModalOpen ? <Popup posX={posX} posY={posY} /> : null}</div>
         </figure>
       </section>
       <section>
