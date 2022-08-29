@@ -1,11 +1,13 @@
 import React from 'react';
+import { ActualCoords } from './Game';
 
-type Positions = {
+type myProps = {
   boxPosX: number;
   boxPosY: number;
+  actualCoords: ActualCoords;
 };
 
-const Popup = (props: Positions) => {
+const Popup = (props: myProps) => {
   return (
     <div
       className=" absolute flex text-xs gap-1"
