@@ -8,17 +8,23 @@ import Space from '../assets/images/space main.jpg';
 import { useParams, Link } from 'react-router-dom';
 import Popup from './Popup';
 
+export type ActualCoords = {
+  x: number;
+  y: number;
+};
+
 const Game = () => {
   let params = useParams();
   let gameUrl;
-  const [posX, setPosX] = useState(0);
-  const [posY, setPosY] = useState(0);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [boxPosX, setBoxPosX] = useState(0);
+  const [boxPosY, setBoxPosY] = useState(0);
+  const [openModal, setOpenModal] = useState(false);
+  const [actualCoords, setActualCoords] = useState<ActualCoords>({ x: 0, y: 0 });
 
   useEffect(() => {
     const dismissModal = (event: any) => {
       if (event.target.id !== 'gamePic') {
-        setIsModalOpen(false);
+        setOpenModal(false);
       }
     };
     document.body.addEventListener('click', dismissModal);
@@ -46,16 +52,33 @@ const Game = () => {
 
   const handleImageClick = (event: any) => {
     const rect = event.target.getBoundingClientRect();
-    let newX = event.clientX - rect.left; //x position within the element.
-    let newY = event.clientY - rect.top; //y position within the element.
-    setPosX(newX);
-    setPosY(newY);
-    console.log('Left? : ' + newX + ' ; Top? : ' + newY + '.');
-    setIsModalOpen(true);
+    const currentGame = event.target;
+    const relativeNewX = event.clientX - rect.left;
+    const relativeNewY = event.clientY - rect.top;
+
+    // The screen resolutions at which I solved the puzzles
+    const widthRatio = 1440 / currentGame.width;
+    const heightRatio = 924 / currentGame.height;
+    const actualX = Math.round(relativeNewX * widthRatio);
+    const actualY = Math.round(relativeNewY * heightRatio);
+    setBoxPosX(relativeNewX);
+    setBoxPosY(relativeNewY);
+
+    setActualCoords({
+      x: actualX,
+      y: actualY,
+    });
+
+    // TODO: Store actual coords in a state.
+    // TODO: When user clicks on one of the pop up button, validate the result. Compare the character selected, with the actual coord in state, against the presolved value. First store this presolved value in the game as a global variable. Then move it to the server side using firestore.
+
+    // console.log('Left? : ' + relativeNewX + ' ; Top? : ' + relativeNewY + '.');
+    // console.log('Actual: Left? : ' + actualX + ' ; Top? : ' + actualY + '.');
+    setOpenModal(true);
   };
 
   return (
-    <div className="px-[30px] md:px-[60px] lg:px-[140px]">
+    <div className="px-[30px]">
       <header className="w-full px-8 md:px-16 lg:px-36 py-8 text-center flex justify-between items-center">
         <Link to="/">
           <button className="bg-primary text-myWhite py-2 px-4 text-sm md:text-base md:py-4 md:px-8">
@@ -78,15 +101,19 @@ const Game = () => {
         </div>
         <div>00m:00s</div>
       </header>
-      <section className="mb-[30px] lg:mb-[70px]">
-        <figure className="w-[100%] relative">
+      <section className="mb-[30px] lg:mb-[70px] flex">
+        <figure className="w-[100%] relative self-center justify-center">
           <img
             src={gameUrl}
             alt="Locate the three characters on the beach"
             onClick={handleImageClick}
             id="gamePic"
           />
-          <div>{isModalOpen ? <Popup posX={posX} posY={posY} /> : null}</div>
+          <div>
+            {openModal ? (
+              <Popup boxPosX={boxPosX} boxPosY={boxPosY} actualCoords={actualCoords} />
+            ) : null}
+          </div>
         </figure>
       </section>
       <section>
