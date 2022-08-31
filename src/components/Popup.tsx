@@ -1,5 +1,7 @@
 import React from 'react';
 import { ActualCoords } from './Game';
+import { db } from '../firebase';
+import { doc, getDoc } from 'firebase/firestore';
 
 type myProps = {
   boxPosX: number;
@@ -10,15 +12,31 @@ type myProps = {
 };
 
 const Popup = (props: myProps) => {
-  const handleSelection = (event: any) => {
+  const handleSelection = async (event: any) => {
     const { gameId, actualCoords } = props;
-    const selection = event.target.textContent as keyof typeof game1;
-    const answer = game3[selection];
-    // 10 is used here to give user some leeway with selection within a range
-    if (answer.x <= actualCoords.x + 10 && answer.x >= actualCoords.x - 10) {
-      console.log('You found it');
+    const selection = event.target.textContent as string;
+    const currentGame = gameId as string;
+    const docRef = doc(db, currentGame, selection);
+    const docSnap = await getDoc(docRef);
+
+    if (docSnap.exists()) {
+      const coordsObj = docSnap.data();
+      // Cloud function is the better design, not using it because of money
+      // 15 is used here to give user some leeway with selection within a range
+      const leeway = 15;
+      if (
+        coordsObj.x <= actualCoords.x + leeway &&
+        coordsObj.x >= actualCoords.x - leeway &&
+        coordsObj.y <= actualCoords.y + leeway &&
+        coordsObj.y >= actualCoords.y - leeway
+      ) {
+        console.log('You found it');
+      } else {
+        console.log('Try Again');
+      }
     } else {
-      console.log('Try Again');
+      // doc.data() will be undefined in this case
+      console.log('No such document!');
     }
   };
 
@@ -44,93 +62,3 @@ const Popup = (props: myProps) => {
 };
 
 export default Popup;
-
-const game1 = {
-  Waldo: {
-    x: 890,
-    y: 352,
-  },
-  Odlaw: {
-    x: 151,
-    y: 322,
-  },
-  Whitebeard: {
-    x: 387,
-    y: 324,
-  },
-};
-
-const game2 = {
-  Waldo: {
-    x: 1229,
-    y: 666,
-  },
-  Odlaw: {
-    x: 456,
-    y: 585,
-  },
-  Whitebeard: {
-    x: 97,
-    y: 697,
-  },
-};
-
-const game3 = {
-  Waldo: {
-    x: 582,
-    y: 633,
-  },
-  Odlaw: {
-    x: 101,
-    y: 633,
-  },
-  Whitebeard: {
-    x: 1124,
-    y: 525,
-  },
-};
-
-const correctCoords = {
-  game1: {
-    Waldo: {
-      x: 890,
-      y: 352,
-    },
-    Odlaw: {
-      x: 151,
-      y: 322,
-    },
-    Whitebeard: {
-      x: 387,
-      y: 324,
-    },
-  },
-  game2: {
-    Waldo: {
-      x: 1229,
-      y: 666,
-    },
-    Odlaw: {
-      x: 456,
-      y: 585,
-    },
-    Whitebeard: {
-      x: 97,
-      y: 697,
-    },
-  },
-  game3: {
-    Waldo: {
-      x: 582,
-      y: 633,
-    },
-    Odlaw: {
-      x: 101,
-      y: 633,
-    },
-    Whitebeard: {
-      x: 1124,
-      y: 525,
-    },
-  },
-};
