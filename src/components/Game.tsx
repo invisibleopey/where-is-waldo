@@ -7,10 +7,17 @@ import Snow from '../assets/images/snow main.jpg';
 import Space from '../assets/images/space main.jpg';
 import { useParams, Link } from 'react-router-dom';
 import Popup from './Popup';
+import Tag from './Tag';
 
 export type ActualCoords = {
   x: number;
   y: number;
+};
+
+export type FoundCharacters = {
+  name: string;
+  posX: number;
+  posY: number;
 };
 
 const Game = () => {
@@ -20,6 +27,7 @@ const Game = () => {
   const [boxPosY, setBoxPosY] = useState(0);
   const [openModal, setOpenModal] = useState(false);
   const [actualCoords, setActualCoords] = useState<ActualCoords>({ x: 0, y: 0 });
+  const [foundCharacters, setFoundCharacters] = useState<FoundCharacters[]>([]);
 
   useEffect(() => {
     const dismissModal = (event: any) => {
@@ -109,9 +117,21 @@ const Game = () => {
             onClick={handleImageClick}
             id="gamePic"
           />
+          {foundCharacters.length
+            ? foundCharacters.map((character) => (
+                <Tag coordsX={character.posX} coordsY={character.posY} key={character.name} />
+              ))
+            : null}
           <div>
             {openModal ? (
-              <Popup boxPosX={boxPosX} boxPosY={boxPosY} actualCoords={actualCoords} />
+              <Popup
+                boxPosX={boxPosX}
+                boxPosY={boxPosY}
+                actualCoords={actualCoords}
+                gameId={params.gameId}
+                setFoundCharacters={setFoundCharacters}
+                foundCharacters={foundCharacters}
+              />
             ) : null}
           </div>
         </figure>
