@@ -2,18 +2,20 @@ import React from 'react';
 import { ActualCoords } from './Game';
 import { db } from '../firebase';
 import { doc, getDoc } from 'firebase/firestore';
+import { FoundCharacters } from './Game';
 
 type myProps = {
   boxPosX: number;
   boxPosY: number;
   actualCoords: ActualCoords;
   gameId: string | undefined;
-  setFoundCharacters: React.Dispatch<React.SetStateAction<never[]>>;
+  setFoundCharacters: React.Dispatch<React.SetStateAction<FoundCharacters[]>>;
+  foundCharacters: FoundCharacters[];
 };
 
 const Popup = (props: myProps) => {
+  const { gameId, actualCoords, setFoundCharacters, foundCharacters, boxPosX, boxPosY } = props;
   const handleSelection = async (event: any) => {
-    const { gameId, actualCoords } = props;
     const selection = event.target.textContent as string;
     const currentGame = gameId as string;
     const docRef = doc(db, currentGame, selection);
@@ -31,6 +33,7 @@ const Popup = (props: myProps) => {
         coordsObj.y >= actualCoords.y - leeway
       ) {
         console.log('You found it');
+        handleSuccess(selection);
       } else {
         console.log('Try Again');
       }
@@ -40,10 +43,23 @@ const Popup = (props: myProps) => {
     }
   };
 
+  const handleSuccess = (selection: string) => {
+    if (foundCharacters.length === 3) return;
+    setFoundCharacters((prevState) => {
+      return [
+        ...prevState,
+        {
+          name: selection,
+          posX: boxPosX,
+          posY: boxPosY,
+        },
+      ];
+    });
+  };
   return (
     <div
       className=" absolute flex text-xs gap-1"
-      style={{ top: `${props.boxPosY}px`, left: `${props.boxPosX}px` }}
+      style={{ top: `${boxPosY}px`, left: `${boxPosX}px` }}
     >
       <div className=" rounded-full w-8 h-8 md:w-12 md:h-12 border-solid border-[#000000] border-2 translate-y-[-50%] translate-x-[-50%]"></div>
       <div className="flex flex-col">
