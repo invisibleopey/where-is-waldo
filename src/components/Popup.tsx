@@ -11,10 +11,19 @@ type myProps = {
   gameId: string | undefined;
   setFoundCharacters: React.Dispatch<React.SetStateAction<FoundCharacters[]>>;
   foundCharacters: FoundCharacters[];
+  setIsSelectionCorrect: React.Dispatch<React.SetStateAction<boolean | null>>;
 };
 
 const Popup = (props: myProps) => {
-  const { gameId, actualCoords, setFoundCharacters, foundCharacters, boxPosX, boxPosY } = props;
+  const {
+    gameId,
+    actualCoords,
+    setFoundCharacters,
+    foundCharacters,
+    boxPosX,
+    boxPosY,
+    setIsSelectionCorrect,
+  } = props;
   const handleSelection = async (event: any) => {
     const selection = event.target.textContent as string;
     const currentGame = gameId as string;
@@ -36,6 +45,7 @@ const Popup = (props: myProps) => {
         handleSuccess(selection);
       } else {
         console.log('Try Again');
+        setIsSelectionCorrect(false);
       }
     } else {
       // doc.data() will be undefined in this case
@@ -55,7 +65,14 @@ const Popup = (props: myProps) => {
         },
       ];
     });
+    setIsSelectionCorrect(true);
   };
+  const handleButtonClass = (buttonText: string) => {
+    return foundCharacters.find((character) => character.name === buttonText)
+      ? 'hidden'
+      : 'option-btns';
+  };
+
   return (
     <div
       className=" absolute flex text-xs gap-1"
@@ -63,34 +80,13 @@ const Popup = (props: myProps) => {
     >
       <div className=" rounded-full w-8 h-8 md:w-12 md:h-12 border-solid border-[#000000] border-2 translate-y-[-50%] translate-x-[-50%]"></div>
       <div className="flex flex-col">
-        <button
-          className={
-            foundCharacters.find((character) => character.name === 'Waldo')
-              ? 'hidden'
-              : 'option-btns'
-          }
-          onClick={handleSelection}
-        >
+        <button className={handleButtonClass('Waldo')} onClick={handleSelection}>
           Waldo
         </button>
-        <button
-          className={
-            foundCharacters.find((character) => character.name === 'Odlaw')
-              ? 'hidden'
-              : 'option-btns'
-          }
-          onClick={handleSelection}
-        >
+        <button className={handleButtonClass('Odlaw')} onClick={handleSelection}>
           Odlaw
         </button>
-        <button
-          className={
-            foundCharacters.find((character) => character.name === 'Whitebeard')
-              ? 'hidden'
-              : 'option-btns'
-          }
-          onClick={handleSelection}
-        >
+        <button className={handleButtonClass('Whitebeard')} onClick={handleSelection}>
           Whitebeard
         </button>
       </div>
