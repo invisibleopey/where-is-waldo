@@ -95,15 +95,39 @@ const Game = () => {
         </Link>
         <div className="flex gap-3 shrink-[2]">
           <figure className="myFigure">
-            <img src={Waldo} alt="A close up look of waldo" />
+            <img
+              src={Waldo}
+              alt="A close up look of waldo"
+              className={
+                foundCharacters.find((character) => character.name === 'Waldo')
+                  ? 'opacity-10'
+                  : 'opacity-100'
+              }
+            />
             <figcaption className="text-xs md:text-base">Waldo</figcaption>
           </figure>
           <figure className="myFigure">
-            <img src={Odlaw} alt="A close up look of Odlaw" />
+            <img
+              src={Odlaw}
+              alt="A close up look of Odlaw"
+              className={
+                foundCharacters.find((character) => character.name === 'Odlaw')
+                  ? 'opacity-10'
+                  : 'opacity-100'
+              }
+            />
             <figcaption className="text-xs md:text-base">Odlaw</figcaption>
           </figure>
           <figure className="myFigure">
-            <img src={Whitebeard} alt="A close up look of Whitebeard" />
+            <img
+              src={Whitebeard}
+              alt="A close up look of Whitebeard"
+              className={
+                foundCharacters.find((character) => character.name === 'Whitebeard')
+                  ? 'opacity-10'
+                  : 'opacity-100'
+              }
+            />
             <figcaption className="text-xs md:text-base">Whitebeard</figcaption>
           </figure>
         </div>
