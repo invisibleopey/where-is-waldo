@@ -63,13 +63,34 @@ const Popup = (props: myProps) => {
     >
       <div className=" rounded-full w-8 h-8 md:w-12 md:h-12 border-solid border-[#000000] border-2 translate-y-[-50%] translate-x-[-50%]"></div>
       <div className="flex flex-col">
-        <button className="option-btns" onClick={handleSelection}>
+        <button
+          className={
+            foundCharacters.find((character) => character.name === 'Waldo')
+              ? 'hidden'
+              : 'option-btns'
+          }
+          onClick={handleSelection}
+        >
           Waldo
         </button>
-        <button className="option-btns" onClick={handleSelection}>
+        <button
+          className={
+            foundCharacters.find((character) => character.name === 'Odlaw')
+              ? 'hidden'
+              : 'option-btns'
+          }
+          onClick={handleSelection}
+        >
           Odlaw
         </button>
-        <button className="option-btns" onClick={handleSelection}>
+        <button
+          className={
+            foundCharacters.find((character) => character.name === 'Whitebeard')
+              ? 'hidden'
+              : 'option-btns'
+          }
+          onClick={handleSelection}
+        >
           Whitebeard
         </button>
       </div>
