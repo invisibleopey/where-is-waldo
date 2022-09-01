@@ -28,6 +28,7 @@ const Game = () => {
   const [openModal, setOpenModal] = useState(false);
   const [actualCoords, setActualCoords] = useState<ActualCoords>({ x: 0, y: 0 });
   const [foundCharacters, setFoundCharacters] = useState<FoundCharacters[]>([]);
+  const [isSelectionCorrect, setIsSelectionCorrect] = useState<boolean | null>(null);
 
   useEffect(() => {
     const dismissModal = (event: any) => {
@@ -76,13 +77,21 @@ const Game = () => {
       x: actualX,
       y: actualY,
     });
-
-    // TODO: Store actual coords in a state.
-    // TODO: When user clicks on one of the pop up button, validate the result. Compare the character selected, with the actual coord in state, against the presolved value. First store this presolved value in the game as a global variable. Then move it to the server side using firestore.
-
-    // console.log('Left? : ' + relativeNewX + ' ; Top? : ' + relativeNewY + '.');
-    // console.log('Actual: Left? : ' + actualX + ' ; Top? : ' + actualY + '.');
     setOpenModal(true);
+  };
+
+  const handleCharacterCheck = (targetCharacter: string) => {
+    return foundCharacters.find((character) => character.name === targetCharacter)
+      ? 'opacity-10'
+      : 'opacity-100';
+  };
+
+  const handleBorderColor = () => {
+    return isSelectionCorrect
+      ? 'border-[rgba(0,128,0,0.7)]'
+      : isSelectionCorrect === null
+      ? ''
+      : 'border-[rgba(255,0,0,0.7)]';
   };
 
   return (
@@ -98,11 +107,7 @@ const Game = () => {
             <img
               src={Waldo}
               alt="A close up look of waldo"
-              className={
-                foundCharacters.find((character) => character.name === 'Waldo')
-                  ? 'opacity-10'
-                  : 'opacity-100'
-              }
+              className={handleCharacterCheck('Waldo')}
             />
             <figcaption className="text-xs md:text-base">Waldo</figcaption>
           </figure>
@@ -110,11 +115,7 @@ const Game = () => {
             <img
               src={Odlaw}
               alt="A close up look of Odlaw"
-              className={
-                foundCharacters.find((character) => character.name === 'Odlaw')
-                  ? 'opacity-10'
-                  : 'opacity-100'
-              }
+              className={handleCharacterCheck('Odlaw')}
             />
             <figcaption className="text-xs md:text-base">Odlaw</figcaption>
           </figure>
@@ -122,11 +123,7 @@ const Game = () => {
             <img
               src={Whitebeard}
               alt="A close up look of Whitebeard"
-              className={
-                foundCharacters.find((character) => character.name === 'Whitebeard')
-                  ? 'opacity-10'
-                  : 'opacity-100'
-              }
+              className={handleCharacterCheck('Whitebeard')}
             />
             <figcaption className="text-xs md:text-base">Whitebeard</figcaption>
           </figure>
@@ -140,6 +137,7 @@ const Game = () => {
             alt="Locate the three characters on the beach"
             onClick={handleImageClick}
             id="gamePic"
+            className={'border-2 border-[transparent] ' + handleBorderColor()}
           />
           {foundCharacters.length
             ? foundCharacters.map((character) => (
@@ -155,6 +153,7 @@ const Game = () => {
                 gameId={params.gameId}
                 setFoundCharacters={setFoundCharacters}
                 foundCharacters={foundCharacters}
+                setIsSelectionCorrect={setIsSelectionCorrect}
               />
             ) : null}
           </div>
