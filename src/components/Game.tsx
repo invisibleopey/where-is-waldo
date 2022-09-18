@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import Waldo from '../assets/images/Waldo.jpg';
 import Odlaw from '../assets/images/Odlaw.jpg';
 import Whitebeard from '../assets/images/Whitebeard.jpg';
@@ -8,6 +8,8 @@ import Space from '../assets/images/space main.jpg';
 import { useParams, Link } from 'react-router-dom';
 import Popup from './Popup';
 import Tag from './Tag';
+import CaptureScore from './CaptureScore';
+import { formatTime } from '../utils/FormatTime';
 
 export type ActualCoords = {
   x: number;
@@ -29,6 +31,9 @@ const Game = () => {
   const [actualCoords, setActualCoords] = useState<ActualCoords>({ x: 0, y: 0 });
   const [foundCharacters, setFoundCharacters] = useState<FoundCharacters[]>([]);
   const [isSelectionCorrect, setIsSelectionCorrect] = useState<boolean | null>(null);
+  const [timer, setTimer] = useState(0);
+  const counterRef = useRef<any>(null);
+  const [gameover, setGameover] = useState(false);
 
   useEffect(() => {
     const dismissModal = (event: any) => {
@@ -42,6 +47,24 @@ const Game = () => {
       document.body.removeEventListener('click', dismissModal);
     };
   });
+
+  useEffect(() => {
+    counterRef.current = setInterval(() => {
+      setTimer((prevTime) => {
+        return prevTime + 1;
+      });
+    }, 1000);
+    return () => {
+      clearInterval(counterRef.current);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (foundCharacters.length === 3) {
+      clearInterval(counterRef.current);
+      setGameover(true);
+    }
+  }, [foundCharacters]);
 
   switch (params.gameId) {
     case 'game1':
@@ -128,36 +151,41 @@ const Game = () => {
             <figcaption className="text-xs md:text-base">Whitebeard</figcaption>
           </figure>
         </div>
-        <div>00m:00s</div>
+        <div>{formatTime(timer)}</div>
       </header>
       <section className="mb-[30px] lg:mb-[70px] flex">
-        <figure className="w-[100%] relative self-center justify-center">
-          <img
-            src={gameUrl}
-            alt="Locate the three characters on the beach"
-            onClick={handleImageClick}
-            id="gamePic"
-            className={'border-2 border-[transparent] ' + handleBorderColor()}
-          />
-          {foundCharacters.length
-            ? foundCharacters.map((character) => (
-                <Tag coordsX={character.posX} coordsY={character.posY} key={character.name} />
-              ))
-            : null}
-          <div>
-            {openModal ? (
-              <Popup
-                boxPosX={boxPosX}
-                boxPosY={boxPosY}
-                actualCoords={actualCoords}
-                gameId={params.gameId}
-                setFoundCharacters={setFoundCharacters}
-                foundCharacters={foundCharacters}
-                setIsSelectionCorrect={setIsSelectionCorrect}
-              />
-            ) : null}
-          </div>
-        </figure>
+        {/* Use conditional rendering to render Capture Scores or game image */}
+        {gameover ? (
+          <CaptureScore timer={timer} gameId={params.gameId} />
+        ) : (
+          <figure className="w-[100%] relative self-center justify-center">
+            <img
+              src={gameUrl}
+              alt="Locate the three characters on the beach"
+              onClick={handleImageClick}
+              id="gamePic"
+              className={'border-2 ' + handleBorderColor()}
+            />
+            {foundCharacters.length
+              ? foundCharacters.map((character) => (
+                  <Tag coordsX={character.posX} coordsY={character.posY} key={character.name} />
+                ))
+              : null}
+            <div>
+              {openModal ? (
+                <Popup
+                  boxPosX={boxPosX}
+                  boxPosY={boxPosY}
+                  actualCoords={actualCoords}
+                  gameId={params.gameId}
+                  setFoundCharacters={setFoundCharacters}
+                  foundCharacters={foundCharacters}
+                  setIsSelectionCorrect={setIsSelectionCorrect}
+                />
+              ) : null}
+            </div>
+          </figure>
+        )}
       </section>
       <section>
         <div className="text-center">
