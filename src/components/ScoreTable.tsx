@@ -1,35 +1,49 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { db } from '../firebase';
+import { collection, getDocs, query, orderBy, DocumentData } from 'firebase/firestore';
+import { formatTime } from '../utils/FormatTime';
 
 const ScoreTable = () => {
   let params = useParams();
-  // TODO: Use the parameter supplied to render dynamic score specific to each game
+  const [scoreList, setScoreList] = useState<DocumentData[]>([]);
+
+  useEffect(() => {
+    const fetchScores = async () => {
+      // Clear current scoreList
+      setScoreList([]);
+      const collectionName = `${params.gameId} leaderboard`;
+      const collectionRef = collection(db, collectionName);
+      const q = query(collectionRef, orderBy('timer'));
+      try {
+        const querySnapshot = await getDocs(q);
+        querySnapshot.forEach((doc) => {
+          const docObject = doc.data();
+          setScoreList((prevData) => [...prevData, docObject]);
+        });
+      } catch (error) {
+        throw error;
+      }
+    };
+    fetchScores();
+  }, [params.gameId]);
+
   return (
     <table className="w-[100%]">
       <tr>
         <th>Name</th>
         <th>Time</th>
       </tr>
-      <tr>
-        <td>Opey</td>
-        <td>0:20</td>
-      </tr>
-      <tr>
-        <td>Abdul</td>
-        <td>0:30</td>
-      </tr>
-      <tr>
-        <td>Rich</td>
-        <td>0:35</td>
-      </tr>
-      <tr>
-        <td>Cap</td>
-        <td>0:40</td>
-      </tr>
-      <tr>
-        <td>Juice</td>
-        <td>0:45</td>
-      </tr>
+      {scoreList.length
+        ? scoreList.map((player) => {
+            return (
+              <tr>
+                <td>{player.name}</td>
+                <td>{formatTime(player.timer)}</td>
+              </tr>
+            );
+          })
+        : null}
     </table>
   );
 };
