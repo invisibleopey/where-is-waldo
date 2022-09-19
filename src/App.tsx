@@ -6,6 +6,8 @@ import Home from './components/Home';
 import Leaderboard from './components/Leaderboard';
 import NotFound from './components/NotFound';
 import ScoreTable from './components/ScoreTable';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   return (
@@ -20,6 +22,7 @@ function App() {
         <Route path="*" element={<NotFound />} />
       </Routes>
       <Footer />
+      <ToastContainer />
     </div>
   );
 }
