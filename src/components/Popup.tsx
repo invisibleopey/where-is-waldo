@@ -3,6 +3,7 @@ import { ActualCoords } from './Game';
 import { db } from '../firebase';
 import { doc, getDoc } from 'firebase/firestore';
 import { FoundCharacters } from './Game';
+import { toast } from 'react-toastify';
 
 type myProps = {
   boxPosX: number;
@@ -24,6 +25,18 @@ const Popup = (props: myProps) => {
     boxPosY,
     setIsSelectionCorrect,
   } = props;
+
+  const successToast = () =>
+    toast.success('Yes! You found one.', {
+      position: toast.POSITION.TOP_CENTER,
+      autoClose: 1500,
+    });
+  const failureToast = () =>
+    toast.error('Opps! Try again', {
+      position: toast.POSITION.TOP_CENTER,
+      autoClose: 1500,
+    });
+
   const handleSelection = async (event: any) => {
     const selection = event.target.textContent as string;
     const currentGame = gameId as string;
@@ -33,8 +46,8 @@ const Popup = (props: myProps) => {
     if (docSnap.exists()) {
       const coordsObj = docSnap.data();
       // Cloud function is the better design, not using it because of money
-      // 15 is used here to give user some leeway with selection within a range
-      const leeway = 15;
+      // 25 is used here to give user some leeway with selection within a range
+      const leeway = 25;
       if (
         coordsObj.x <= actualCoords.x + leeway &&
         coordsObj.x >= actualCoords.x - leeway &&
@@ -44,6 +57,7 @@ const Popup = (props: myProps) => {
         handleSuccess(selection);
       } else {
         setIsSelectionCorrect(false);
+        failureToast();
       }
     } else {
       throw new Error('No such document!');
@@ -63,6 +77,7 @@ const Popup = (props: myProps) => {
       ];
     });
     setIsSelectionCorrect(true);
+    successToast();
   };
   const handleButtonClass = (buttonText: string) => {
     return foundCharacters.find((character) => character.name === buttonText)
