@@ -164,7 +164,7 @@ const Game = () => {
               alt="Locate the three characters on the beach"
               onClick={handleImageClick}
               id="gamePic"
-              className={'border-[5px] ' + handleBorderColor()}
+              className={'border-2 ' + handleBorderColor()}
             />
             {foundCharacters.length
               ? foundCharacters.map((character) => (
