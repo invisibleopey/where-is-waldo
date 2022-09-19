@@ -41,15 +41,12 @@ const Popup = (props: myProps) => {
         coordsObj.y <= actualCoords.y + leeway &&
         coordsObj.y >= actualCoords.y - leeway
       ) {
-        console.log('You found it');
         handleSuccess(selection);
       } else {
-        console.log('Try Again');
         setIsSelectionCorrect(false);
       }
     } else {
-      // doc.data() will be undefined in this case
-      console.log('No such document!');
+      throw new Error('No such document!');
     }
   };
 
