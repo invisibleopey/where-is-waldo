@@ -37,9 +37,7 @@ Users should be able to:
 
 ![](./wiwhome.png)
 
-https://user-images.githubusercontent.com/19176671/190939264-b559c9cc-0b90-4b6e-a5a0-0d58be6fba48.mov
-
-
+![gif of live version](https://user-images.githubusercontent.com/19176671/191118364-f0dd1c92-5ce5-4f93-b570-15a4596d9358.gif)
 
 ### Links
 
@@ -92,6 +90,7 @@ See the section about [deployment](https://facebook.github.io/create-react-app/d
 - [React](https://reactjs.org/) - JS library
 - [Typescript](https://www.typescriptlang.org/)
 - [React router](https://reactrouter.com/en/main)
+- Firebase BaaS
 - [Netlify](https://www.netlify.com/)
 
 ### What I learned
