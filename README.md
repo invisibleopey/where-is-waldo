@@ -1,6 +1,6 @@
 # Where is waldo
 
-This is a solution to the [Where is waldo project](https://). The Odin Project help you improve your coding skills by building realistic projects.
+This is a solution to the [Where is waldo project](https://www.theodinproject.com/lessons/node-path-javascript-where-s-waldo-a-photo-tagging-app). The Odin Project help you improve your coding skills by building realistic projects.
 
 ## Table of contents
 
@@ -35,12 +35,12 @@ Users should be able to:
 
 ### Screenshot
 
-![](./screenshot.jpg)
+![](./wiwhome.png)
 
 ### Links
 
-- Repo URL: [](https://)
-- Live Site URL: [](https://)
+- Repo URL: https://github.com/invisibleopey/where-is-waldo.git
+- Live Site URL: https://invisible-where-is-waldo.netlify.app/
 
 ## Available Scripts
 
@@ -83,22 +83,40 @@ See the section about [deployment](https://facebook.github.io/create-react-app/d
 ### Built with
 
 - Semantic HTML5 markup
-- Tailwind CSS
+- [Tailwind CSS](https://tailwindui.com/)
 - Mobile-first workflow
 - [React](https://reactjs.org/) - JS library
-- [Typescript](http://)
-- [React router](http://)
+- [Typescript](https://www.typescriptlang.org/)
+- [React router](https://reactrouter.com/en/main)
+- [Netlify](https://www.netlify.com/)
 
 ### What I learned
 
+I lean how to:
+
+- use relative screen size to get the absolute coordinate of mouse event.
+- properly type setTimeouts in TypeScript
+- use continious deployment on [netlify](https://www.netlify.com/).
+- type firestore documents properly
+
 ### Continued development
 
+- I would love to revisit the project once I learn NodeJS to remove the coordinate checking logic from the frontend.
+
 ### Useful resources
+
+- https://docs.netlify.com/
+- https://reactrouter.com/en/main
+- https://www.typescriptlang.org/docs/
+- https://tailwindcss.com/docs/
 
 ## Author
 
 - Abdullahi Muritala
-- Website - [abdullahimuritala](https://www.your-site.com)
 - Twitter - [@invisibleopey](https://www.twitter.com/invisibleopey)
+- LinkedIn - [abdullahimuritala](https://www.linkedin.com/in/abdullahimuritala/)
+- Website - [abdullahimuritala]()
 
 ## Acknowledgments
+
+I acknowledge the core team at the odin project for putting together the amazing curriculum. This has put order to the web development journey of self-taught software developers like myself.
